@@ -13,6 +13,7 @@ function drawBarChart(json) {
 
     const w = 1000;
     const h = 375;
+    const padding = 60;
 
     const dataset = json.data;
 
@@ -24,7 +25,25 @@ function drawBarChart(json) {
 
     const yScale = d3.scaleLinear()
         .domain([0, d3.max(dataset, (d) => d[1])])
-        .range([h, 0])
+        .range([h - padding, padding])
+
+    const xScale = d3.scaleLinear()
+        .domain([
+            d3.min(dataset, (d) => d[0]), 
+            d3.max(dataset, (d) => d[0]), 
+        ])
+        .range([padding, w - padding])
+
+    const xAxis = d3.axisBottom(xScale);
+    const yAxis = d3.axisLeft(yScale);
+
+    svg.append("g")
+        .attr(
+            "transform",
+            `translate(0,${h - padding})`
+        )
+        .call(xAxis)
+        .attr("id", "x-axis")
 
     svg.selectAll("rec")
         .data(dataset)

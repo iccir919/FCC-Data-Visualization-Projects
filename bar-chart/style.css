@@ -1,1 +1,18 @@
+body {
+    background-color: green;
+}
 
+.chart-container {
+    width: 1000px;
+    height: 600px;
+    margin: auto;
+    background-color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-shadow: 0 0 20px #000
+}
+
+#title {
+    padding-top: 25px;
+    text-align: center;
+    font-weight: 500;
+}
