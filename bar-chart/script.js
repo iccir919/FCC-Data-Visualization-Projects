@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function(){
 function drawBarChart(json) {
 
     const w = 1000;
-    const h = 375;
+    const h = 500;
     const padding = 60;
 
     const dataset = json.data;
@@ -27,12 +27,12 @@ function drawBarChart(json) {
         .domain([0, d3.max(dataset, (d) => d[1])])
         .range([h - padding, padding])
 
-    const xScale = d3.scaleLinear()
+    const xScale = d3.scaleTime()
         .domain([
-            d3.min(dataset, (d) => d[0]), 
-            d3.max(dataset, (d) => d[0]), 
+            d3.min(dataset, (d) => new Date(d[0])),
+            d3.max(dataset, (d) => new Date(d[0])),
         ])
-        .range([padding, w - padding])
+        .range([padding, w - padding]);
 
     const xAxis = d3.axisBottom(xScale);
     const yAxis = d3.axisLeft(yScale);
@@ -43,10 +43,17 @@ function drawBarChart(json) {
             `translate(0,${h - padding})`
         )
         .call(xAxis)
-        .attr("id", "x-axis")
+        .attr("id", "x-axis");
+    
+    svg.append("g")
+        .attr("transform", 
+        `translate(${padding}, 0)`)
+        .call(yAxis)
+        .attr("id", "y-axis");
 
     svg.selectAll("rec")
         .data(dataset)
         .enter()
         .append("rect")
+        .attr("class", "bar")
 }
