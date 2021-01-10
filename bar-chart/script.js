@@ -51,9 +51,11 @@ function drawBarChart(json) {
         .call(yAxis)
         .attr("id", "y-axis");
 
-    svg.selectAll("rec")
+    svg.selectAll("rect")
         .data(dataset)
         .enter()
         .append("rect")
         .attr("class", "bar")
+        .attr("data-date", (d) => d[0])
+        .attr("data-gdp", (d) => d[1])
 }
