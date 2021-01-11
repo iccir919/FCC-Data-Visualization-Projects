@@ -21,7 +21,15 @@ function drawBarChart(json) {
         .select(".chart-container")
         .append("svg")
         .attr("width", w)
-        .attr("height", h);
+        .attr("height", h)
+
+    d3.select("svg")
+        .append("text")
+        .style("font-size", "13px")
+        .attr("text-anchor", "end")
+        .attr("x", w - padding)
+        .attr("y", h - 15)
+        .text("More Information: http://www.bea.gov/national/pdf/nipaguid.pdf")
 
     const div = d3
         .select("body")
@@ -59,6 +67,13 @@ function drawBarChart(json) {
         .call(yAxis)
         .attr("id", "y-axis");
 
+    svg.append("text")
+        .attr("text-anchor", "end")
+        .attr("y", padding + 25)
+        .attr("x", 0 - padding)
+        .attr("transform", "rotate(-90)")
+        .text("Gross Domestic Product");
+
     svg.selectAll("rect")
         .data(dataset)
         .enter()
@@ -78,19 +93,30 @@ function drawBarChart(json) {
                 .transition()
                 .duration(200)
                 .style("opacity", .9)
+
             div
                 .html(`${date.getFullYear()} Q${quarterOfTheYear(date)} <br> ${formatAmount(d[1])}`)
                 .style("left", (event.pageX) + "px")
                 .style("top", (event.pageY - 28) + "px")
                 .attr("data-date", d[0])
+            
+            d3.select(event.target)
+                .transition()
+                .duration(200)
+                .attr("fill", "white")
+            
         })
-        .on("mouseout", () => {
+        .on("mouseout", (event) => {
             div
                 .transition()
                 .duration(500)
                 .style("opacity", 0)
-        })
 
+            d3.select(event.target)
+                .transition()
+                .duration(200)
+                .attr("fill", "DarkSeaGreen")
+        })
 }
 
 function quarterOfTheYear(date) {
