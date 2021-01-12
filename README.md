@@ -7,6 +7,7 @@
 
 ## Visualize Data with a Scatterplot Graph
 - [Project Description](https://www.freecodecamp.org/learn/data-visualization/data-visualization-projects/visualize-data-with-a-scatterplot-graph)
+- [Code](https://github.com/iccir919/fcc-data-visualization-projects/tree/main/scatterplot-graph)
 
 
 ## Visualize Data with a Heat Map
