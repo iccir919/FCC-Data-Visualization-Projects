@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', () => {
     const datasetURL = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json';
     fetch(datasetURL)
         .then(function(response) {
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function(){
         });
 });
 
-function drawBarChart(json) {
+const drawBarChart = (json) => {
 
     const w = 1000;
     const h = 500;
@@ -119,11 +119,11 @@ function drawBarChart(json) {
         })
 }
 
-function quarterOfTheYear(date) {
+const quarterOfTheYear = (date) => {
     const month = date.getMonth() + 1;
     return (Math.ceil(month / 3));
 }
 
-function formatAmount(amount) {
+const formatAmount = (amount) => {
     return `$${amount.toLocaleString()} Billion`
 }
