@@ -18,3 +18,8 @@ h1, h2 {
     font-weight: 500;
 }
 
+#legend {
+    width: 200px;
+    height: 100px;
+    background-color: coral;
+}
