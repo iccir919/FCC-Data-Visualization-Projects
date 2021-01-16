@@ -33,6 +33,12 @@ const drawScatterGraph = (dataset) => {
     const yAxis = d3.axisLeft(yScale).tickFormat( (d) => formatDuration(d) );
     const xAxis = d3.axisBottom(xScale);
 
+    const tooltip = d3
+        .select("body")
+        .append("div")	
+        .attr("id", "tooltip")				
+        .style("opacity", 0);
+
     svg
         .append("g")
         .attr("transform", `translate(0, ${h - padding})`)
@@ -70,6 +76,32 @@ const drawScatterGraph = (dataset) => {
         })
         .style("stroke-width", 1)
         .style("stroke", "Black")
+        .on("mouseover", (d) => {
+            tooltip
+                .transition()
+                .duration(200)
+                .style("opacity", 0.9)
+
+            let doping = "";
+            if (d["Doping"].length > 0) {
+                doping = `<br> <br> ${d["Doping"]}`
+            }
+            tooltip
+                .html(`
+                    ${d["Name"]} (${d["Nationality"]}) <br>
+                    Year: ${d["Year"]}, Time: ${d["Time"]}
+                    ${doping}
+                `)
+                .style("left", `${d3.event.pageX}px`)
+                .style("top", `${d3.event.pageY - 28}px`)
+                .attr("data-year", new Date(`${d["Year"]}-01-01 00:00:00`) )
+        })
+        .on("mouseout", (d) => {
+            tooltip
+                .transition()
+                .duration(500)
+                .style("opacity", 0)
+        })
 
     const legend = svg
         .append("g")
@@ -95,16 +127,14 @@ const drawScatterGraph = (dataset) => {
         .attr("y", h / 2 - 50)
         .text("No doping allegations")
         .style("font-size", "13px")
-        .attr("alignment-baseline","bottom")
         .attr("text-align", "left")
 
     legend
         .append("text")
         .attr("x", w - padding - 180)
-        .attr("y", h / 2 - 23)
+        .attr("y", h / 2 - 20)
         .text("Riders with doping allegations")
         .style("font-size", "13px")
-        .attr("alignment-baseline","middle")
 }
 
 const formatDuration = (duration) => {

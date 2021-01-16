@@ -23,3 +23,15 @@ h1, h2 {
     height: 100px;
     background-color: coral;
 }
+
+#tooltip {
+    position: absolute;
+    max-width: 600px;
+    max-height: 75px;
+    padding: 5px;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+    font-size: 12px;
+}
