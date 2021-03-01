@@ -25,7 +25,13 @@ const drawHeatMap = (dataset) => {
         ])
         .range([padding, w - padding]);
 
-    console.log(xScale(new Date('1990-09-01')))
+    const xAxis = d3.axisBottom(xScale);
+
+    svg
+        .append("g")
+        .attr("transform", `translate(0, ${h - padding})`)
+        .attr("id", "x-axis")
+        .call(xAxis)
 
     const y = d3.scaleTime()
         .domain([
